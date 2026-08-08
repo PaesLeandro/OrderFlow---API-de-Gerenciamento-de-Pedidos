@@ -1,5 +1,9 @@
 package com.portfolio.orderflow.patterns.facade;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.portfolio.orderflow.domain.Order;
 import com.portfolio.orderflow.domain.OrderStatus;
 import com.portfolio.orderflow.dto.CreateOrderRequest;
@@ -8,10 +12,14 @@ import com.portfolio.orderflow.patterns.strategy.PaymentResult;
 import com.portfolio.orderflow.patterns.strategy.PaymentStrategy;
 import com.portfolio.orderflow.patterns.strategy.PaymentStrategyResolver;
 import com.portfolio.orderflow.repository.OrderRepository;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+/**
+ * Centraliza o fluxo de criação dos pedidos.
+ *
+ * A Facade mantém o Controller mais simples, concentrando
+ * em um único ponto as validações, a escolha da estratégia
+ * de pagamento e a persistência dos dados.
+ */
 @Service
 public class OrderFacade {
 
@@ -29,6 +37,13 @@ public class OrderFacade {
         this.paymentStrategyResolver = paymentStrategyResolver;
     }
 
+    /**
+     * Executa o fluxo de criação de um pedido.
+     *
+     * Primeiro valida os dados recebidos, depois seleciona
+     * a estratégia correspondente ao tipo de pagamento,
+     * processa o valor final e salva o pedido.
+     */
     public Order create(CreateOrderRequest request) {
         Order order = new Order();
         order.setCustomerName(request.customerName());
@@ -39,8 +54,11 @@ public class OrderFacade {
 
         validationChain.validate(order);
 
-        PaymentStrategy strategy = paymentStrategyResolver.resolve(order.getPaymentType());
-        PaymentResult paymentResult = strategy.pay(order.getAmount());
+        PaymentStrategy strategy =
+                paymentStrategyResolver.resolve(order.getPaymentType());
+
+        PaymentResult paymentResult =
+                strategy.pay(order.getAmount());
 
         order.setFinalAmount(paymentResult.finalAmount());
         order.setPaymentMessage(paymentResult.message());
@@ -55,6 +73,10 @@ public class OrderFacade {
 
     public Order findById(Long id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado: " + id));
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Pedido não encontrado: " + id
+                        )
+                );
     }
 }

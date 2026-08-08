@@ -1,14 +1,14 @@
-# 🚀 OrderFlow - API de Gerenciamento de Pedidos
+# 🚀 OrderFlow
 
-API REST desenvolvida com **Spring Boot 3** para demonstrar a aplicação de **Design Patterns (Padrões de Projeto)** em Java, como parte do desafio da Digital Innovation One (DIO).
+O OrderFlow é uma API REST desenvolvida durante o desafio de **Design Patterns com Java** da Digital Innovation One.
 
-## 📋 Objetivo
+Ao invés de apenas reproduzir o projeto apresentado, optei por evoluir a implementação adicionando documentação com Swagger/OpenAPI, testes automatizados e uma organização em camadas para aproximar a aplicação de um cenário real de desenvolvimento.
 
-O projeto simula um sistema de gerenciamento de pedidos com diferentes formas de pagamento, aplicando padrões de projeto para tornar o código desacoplado, extensível e de fácil manutenção.
+O objetivo foi aplicar padrões de projeto em um fluxo de criação de pedidos, mantendo o código desacoplado, organizado e de fácil manutenção.
 
 ---
 
-# 🛠 Tecnologias Utilizadas
+# Tecnologias Utilizadas
 
 - Java 17
 - Spring Boot 3.3.5
@@ -21,47 +21,45 @@ O projeto simula um sistema de gerenciamento de pedidos com diferentes formas de
 
 ---
 
-# 📐 Padrões de Projeto Aplicados
+# Padrões de Projeto Aplicados
 
-## ✅ Strategy
+### Strategy
 
-Utilizado para definir diferentes estratégias de pagamento.
+Escolhi o padrão Strategy para desacoplar as regras de pagamento.
 
-Exemplos:
+Cada forma de pagamento possui sua própria implementação, permitindo adicionar novos métodos sem alterar o restante da aplicação.
+
+Implementações:
 
 - PIX
 - Cartão de Crédito
 - Boleto
 
-Cada forma de pagamento possui sua própria implementação.
+---
+
+### Facade
+
+O padrão Facade foi utilizado para centralizar o fluxo de criação dos pedidos.
+
+Dessa forma o Controller permanece simples, delegando toda a lógica de negócio para uma única fachada responsável pela orquestração do processo.
 
 ---
 
-## ✅ Facade
+### Chain of Responsibility
 
-Centraliza todo o fluxo de criação do pedido, simplificando a comunicação entre Controller, validações, estratégias de pagamento e persistência.
+As validações foram organizadas utilizando Chain of Responsibility.
 
----
-
-## ✅ Chain of Responsibility
-
-Responsável pelas validações antes da criação do pedido.
-
-Exemplos:
-
-- Nome obrigatório
-- Email obrigatório
-- Valor maior que zero
+Cada validação possui uma única responsabilidade, facilitando futuras expansões sem modificar o fluxo existente.
 
 ---
 
-## ✅ Singleton
+## Singleton
 
 Utilizado através do gerenciamento de Beans realizado pelo Spring Framework.
 
 ---
 
-# 📂 Estrutura do Projeto
+# Estrutura do Projeto
 
 ```
 src
@@ -79,7 +77,7 @@ src
 
 ---
 
-# ▶ Como Executar
+# Como Executar
 
 ## Clone o projeto
 
@@ -107,7 +105,7 @@ http://localhost:8080
 
 ---
 
-# 📖 Documentação da API
+# Documentação da API
 
 Após iniciar a aplicação, acesse:
 
@@ -177,7 +175,7 @@ GET /api/orders/{id}
 
 ---
 
-# 🗄 Banco de Dados H2
+# Banco de Dados H2
 
 Console do H2:
 
@@ -200,7 +198,7 @@ Senha:
 
 ---
 
-# ✅ Testes
+# Testes
 
 O projeto possui testes unitários para:
 
@@ -215,7 +213,7 @@ mvn test
 
 ---
 
-# 📷 Demonstração
+# Demonstração
 
 - Swagger/OpenAPI funcionando
 - Cadastro de pedidos
@@ -225,7 +223,7 @@ mvn test
 
 ---
 
-# 👨‍💻 Autor
+# Autor
 
 **Leandro Martins Paes**
 
