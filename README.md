@@ -1,4 +1,4 @@
-# 🚀 OrderFlow
+# OrderFlow
 
 O OrderFlow é uma API REST desenvolvida durante o desafio de **Design Patterns com Java** da Digital Innovation One.
 
