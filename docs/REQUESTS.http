@@ -1,0 +1,38 @@
+### Criar pedido PIX
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "João da Silva",
+  "customerEmail": "joao@email.com",
+  "amount": 100.00,
+  "paymentType": "PIX"
+}
+
+### Criar pedido cartão
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Maria Souza",
+  "customerEmail": "maria@email.com",
+  "amount": 250.00,
+  "paymentType": "CREDIT_CARD"
+}
+
+### Criar boleto
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Carlos Lima",
+  "customerEmail": "carlos@email.com",
+  "amount": 80.00,
+  "paymentType": "BOLETO"
+}
+
+### Listar pedidos
+GET http://localhost:8080/api/orders
+
+### Buscar pedido
+GET http://localhost:8080/api/orders/1
